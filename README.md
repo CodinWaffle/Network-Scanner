@@ -45,7 +45,7 @@ A simple Python-based tool for scanning devices on a network and identifying the
 1. Run the tool:
 
    ```
-   python3 main.py
+   python src/scanner.py
    ```
 2. Choose an option from the menu.
 3. For Option 5 (Smart Scan & Kick):
