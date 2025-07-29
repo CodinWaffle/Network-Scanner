@@ -1,6 +1,7 @@
 # Network Scanner
 
-This project is a network scanner that identifies devices connected to a local network, determining their types (computer or phone) and brands.
+This project is a network scanner that identifies devices connected to a local network.
+<img width="834" height="340" alt="Image" src="https://github.com/user-attachments/assets/4f670b52-0ca0-4752-9a89-1c27002cac23" />
 
 ## Features
 
