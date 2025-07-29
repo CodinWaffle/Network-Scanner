@@ -14,13 +14,13 @@ This project is a network scanner that identifies devices connected to a local n
 ```
 network-scanner
 ├── src
-│   ├── scanner.py          # Main entry point for the network scanner
-│   ├── device_identifier.py # Contains the DeviceIdentifier class for identifying devices
-│   ├── utils.py            # Utility functions for network scanning
+│   ├── scanner.py          - Main entry point for the network scanner
+│   ├── device_identifier.py - Contains the DeviceIdentifier class for identifying devices
+│   ├── utils.py            - Utility functions for network scanning
 │   └── types
-│       └── __init__.py     # Exports interfaces/types for device information
-├── requirements.txt        # Lists project dependencies
-└── README.md               # Documentation for the project
+│       └── __init__.py     - Exports interfaces/types for device information
+├── requirements.txt        - Lists project dependencies
+└── README.md               - Documentation for the project
 ```
 
 ## Installation
