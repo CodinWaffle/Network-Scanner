@@ -1,68 +1,63 @@
+# Network Scanner
 
+This project is a network scanner that identifies devices connected to a local network, determining their types (computer or phone) and brands.
 
----
+## Features
 
-# Network Scanner Documentation
+- Scans the local network for connected devices.
+- Identifies the type of each device (computer or phone).
+- Retrieves the brand of each device based on its MAC address.
 
-A simple Python-based tool for scanning devices on a network and identifying their types (phones, computers, IoT, etc.). It includes a smart menu for selecting and deauthing devices.
-
----
-
-## 📌 Features
-
-* Scan WiFi networks and connected devices
-* Auto-detect device type and vendor (🕛Still in development)
-* Group devices by category (mobile, router, etc.)
-* Filter device list by type
-* Deauthenticate devices (Linux/WSL only)
-
----
-
-## Scan Options
+## Project Structure
 
 ```
-1. WiFi Network Scan  
-2. Local Devices Scan  
-3. Full Network Scan  
-4. WiFi SSID Scan  
-5. Smart Scan & Kick  
-6. Exit
+network-scanner
+├── src
+│   ├── scanner.py          # Main entry point for the network scanner
+│   ├── device_identifier.py # Contains the DeviceIdentifier class for identifying devices
+│   ├── utils.py            # Utility functions for network scanning
+│   └── types
+│       └── __init__.py     # Exports interfaces/types for device information
+├── requirements.txt        # Lists project dependencies
+└── README.md               # Documentation for the project
 ```
 
----
+## Installation
 
-## 🛠 Requirements
-
-* Python 3.8+
-* Linux or WSL (for deauth)
-* Monitor-mode WiFi adapter
-* Run: `pip install -r requirements.txt`
-
----
-
-##  How to Use
-
-1. Run the tool:
-
+1. Clone the repository:
    ```
-   python src/scanner.py
+   git clone <repository-url>
+   cd network-scanner
    ```
-2. Choose an option from the menu.
-3. For Option 5 (Smart Scan & Kick):
 
-   * The tool scans devices
-   * Shows them grouped by type
-   * You can filter by type or pick a device number
-   * Confirm, then deauth is executed
+2. Install the required dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
 
+## Usage
 
----
+To run the network scanner, first activate the virtual environment:
 
-## ❗ Notes
+On Windows (PowerShell):
+```
+.\.venv\Scripts\activate
+```
 
-* Deauthentication only works on **Linux/WSL with monitor mode**
-* Unknown devices are shown as "Unknown"
-* Make sure to run as root or with `sudo` if needed
+Then run the scanner:
+```
+python src/scanner.py
+```
 
----
+Note: You may need to run PowerShell as Administrator for the network scanning to work properly.
 
+This will initiate a scan of the local network and output the list of connected devices along with their types and brands.
+
+## Dependencies
+
+- `scapy`: For network scanning capabilities.
+- `requests`: For making API calls to identify device brands.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
