@@ -1,218 +1,123 @@
-# Network-Scanner
 
-
-
-```
-/docs
-├── overview.md
-├── architecture.md
-├── usage-guide.md
-├── components.md
-├── filtering.md
-├── developer-guide.md
-└── troubleshooting.md
-```
 
 ---
 
-### 🔹 `docs/overview.md`
+# Network Scanner Documentation
 
-```markdown
-# Overview
-
-The Enhanced Network Scanner is a Python-based toolkit for detecting, classifying, and interacting with devices on a local or WiFi network. It features:
-
-- Smart device type detection (phones, routers, IoT, etc.)
-- Vendor lookup using MAC OUI
-- Categorized selection interface
-- Integrated deauthentication attack (Linux/WSL)
-
-This tool is ideal for ethical hackers, penetration testers, or anyone interested in network visibility and control.
-```
+A simple Python-based tool for scanning devices on a network and identifying their types (phones, computers, IoT, etc.). It includes a smart menu for selecting and deauthing devices.
 
 ---
 
-### 🔹 `docs/architecture.md`
+## 📌 Features
 
-````markdown
-# Architecture Overview
-
-## Workflow
-
-1. Full network scan via Scapy.
-2. Each device’s MAC is matched to vendor using OUI.
-3. Device is categorized using known patterns (e.g., Apple = Phone or Computer).
-4. Friendly display with filters for easy selection.
-5. Deauthentication attack is initiated on chosen device.
-
-## Components
-
-- `scanner.py`: Main interface + scanner logic
-- `device_identifier.py`: Classification logic (MAC + pattern matching)
-- `utils.py`: OUI database loading and helpers
-
-## Architecture Flow
-
-```mermaid
-graph TD
-    Scan --> MatchMAC --> Classify --> Display --> Filter/Select --> Deauth
-````
-
-````
+* Scan WiFi networks and connected devices
+* Auto-detect device type and vendor
+* Group devices by category (mobile, router, etc.)
+* Filter device list by type
+* Deauthenticate devices (Linux/WSL only)
 
 ---
 
-### 🔹 `docs/usage-guide.md`
-
-```markdown
-# Usage Guide
-
-## Requirements
-
-- Python 3.8+
-- Linux or WSL
-- Monitor-mode WiFi adapter
-- Install: `pip install -r requirements.txt`
-
-## Running
-
-```bash
-python3 main.py
-````
-
-## Main Menu
+## Scan Options
 
 ```
-1. Scan WiFi Networks
-2. Scan Local Devices
-3. Full Scan
-4. Deauth by MAC
-5. Smart Scan + Kick ← Recommended
+1. WiFi Network Scan  
+2. Local Devices Scan  
+3. Full Network Scan  
+4. WiFi SSID Scan  
+5. Smart Scan & Kick  
 6. Exit
 ```
 
-## Example
+---
 
-```
-📱 MOBILE DEVICES
-[1] iPhone 14 | MAC: AA:BB:CC:DD:EE:FF
+## 🛠 Requirements
 
-🌐 NETWORK DEVICES
-[2] TP-Link Router | MAC: 44:55:66:77:88:99
-
-Enter '1' to deauth, 'f iot' to filter, or 'q' to quit.
-```
-
-````
+* Python 3.8+
+* Linux or WSL (for deauth)
+* Monitor-mode WiFi adapter
+* Run: `pip install -r requirements.txt`
 
 ---
 
-### 🔹 `docs/components.md`
+##  How to Use
 
-```markdown
-# Component Details
+1. Run the tool:
 
-## Device Info Object
+   ```
+   python3 main.py
+   ```
+2. Choose an option from the menu.
+3. For Option 5 (Smart Scan & Kick):
 
-```python
-device_info = {
-  "mac_address": "...",
-  "ip_address": "...",
-  "device_type": "phone",
-  "vendor": "Apple",
-  "device_name": "iPhone 14",
-  "confidence": 0.9
-}
-````
+   * The tool scans devices
+   * Shows them grouped by type
+   * You can filter by type or pick a device number
+   * Confirm, then deauth is executed
 
-## OUI Database
+---
 
-```python
-OUI_DATABASE = {
-  "00:03:93": {"vendor": "Apple", "type_hint": "mobile"},
-  "B8:27:EB": {"vendor": "Raspberry Pi", "type_hint": "iot"},
-}
-```
+## Device Info Format
 
-## Pattern Matching
+Each device contains:
 
 ```python
-DEVICE_PATTERNS = {
-  "apple": {
-    "mobile_patterns": ["iPhone", "iPad"],
-    "confidence_boost": 0.2
-  }
+{
+  'ip_address': '192.168.1.100',
+  'mac_address': 'AA:BB:CC:DD:EE:FF',
+  'device_name': 'iPhone 14',
+  'vendor': 'Apple',
+  'device_type': 'phone',
+  'confidence': 0.92
 }
 ```
 
-````
+---
+
+## Device Types
+
+* 📱 Phones
+* 💻 Computers
+* 🏠 IoT Devices
+* 🌐 Routers
+* 🎮 Gaming Devices
+* 📺 Media Devices
+* ❓ Unknown
 
 ---
 
-### 🔹 `docs/filtering.md`
+## Filtering Commands
 
-```markdown
-# Filtering & Selection
+During device selection, you can type:
 
-Users can filter displayed devices by type:
-
-- `f phones`
-- `f computers`
-- `f iot`
-- `f gaming`
-- `f network`
-- `f all`
-
-After filtering, select the device number to initiate deauth.
-
-Invalid input or unknown device types are handled gracefully.
-````
+* `f phones` — show only phones
+* `f computers` — show computers
+* `f iot` — show IoT
+* `f all` — show everything
+* `q` — quit
 
 ---
 
-### 🔹 `docs/developer-guide.md`
+## Main Files
 
-```markdown
-# Developer Guide
-
-### Key Functions
-
-- `identify_and_categorize_devices(devices)`
-- `display_categorized_device_menu(devices)`
-- `filter_devices_by_type(devices)`
-- `get_device_selection_with_filters(devices)`
-
-### To Extend:
-
-- Add more OUI entries in `OUI_DATABASE`
-- Update `DEVICE_PATTERNS` with more vendors
-- Modify `device_identifier.py` to improve pattern matching
-```
+* `main.py` — Entry point
+* `scanner.py` — Handles scans and menus
+* `device_identifier.py` — Detects device type/vendor
+* `utils.py` — Loads OUI/vendor data
 
 ---
 
-### 🔹 `docs/troubleshooting.md`
+## ❗ Notes
 
-```markdown
-# Troubleshooting
+* Deauthentication only works on **Linux/WSL with monitor mode**
+* Unknown devices are shown as "Unknown"
+* Make sure to run as root or with `sudo` if needed
 
-### ❓ "Deauth not working"
+---
 
-- Make sure you're using Linux or WSL
-- WiFi adapter must support monitor mode
-- Run script with `sudo` if needed
+## 📜 License
 
-### ⚠️ "Unknown Device Type"
-
-- Vendor may be missing from database
-- Falls back to 'Unknown' category
-- Consider updating `OUI_DATABASE`
-
-### 🔁 MAC Conflicts
-
-- Tool checks for duplicates in scan results
-- Assigns unique device IDs for selection
-```
+MIT License – For educational and authorized use only.
 
 ---
 
